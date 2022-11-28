@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Statistical Model</title>
+        <link rel="stylesheet" media="screen" href="../static/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="../static/style.css">
+        <script>
+            function Check() {
+                let query = document.getElementById("query").value;
+                let regExp = /^<[A-F]:1|(0?.0*[1-9][0-9]*)(;[A-F]:1|(0?.0*[1-9][0-9]*))*>/;
+                if (regExp.test(query)) {
+                    document.getElementById("message").style.color = "red";
+                    let sum = 0;
+                    let current = "";
+                    let start =0;
+                    for(let i=0; i<query.length;i++){
+                        if(query[i] === ":")
+                            start = i+1;
+                        if(query[i] === ";" || query[i] === ">"){
+                            for(let j=start;j<i;j++)
+                                current+=query[j];
+                            sum+=(current/1.0);
+                            current = "";
+                        }
+                    }
+                    let char = ["A", "B", "C", "D", "E", "F"];
+                    let flag = false;
+                    for(let i=0; i<char.length;i++){
+                        let len = 0;
+                        for(let j=0; j<query.length;j++){
+                            let regex = new RegExp(char[i], "g");
+                            len = (query.match(regex) || []).length;
+                            if(len > 1){
+                                document.getElementById("message").innerText = "The same letter must not be repeated more than once in the query";
+                                flag = true;
+                                break;
+                            }
+                            else
+                                document.getElementById("message").innerText = "";
+                        }
+                        if(flag === true)
+                            break;
+                    }
+                    if(flag !== true){
+                        if(sum>1) {
+                            document.getElementById("message").innerText = "The sum of the values in the query must not be greater than 1";
+                            flag = true;
+                        }
+                        else if (sum<1) {
+                            document.getElementById("message").innerText = "The sum of the values in the query must not be less than 1";
+                            flag = true;
+                        }
+                        else{
+                            document.getElementById("message").innerText = "";
+                            flag = false;
+                        }
+                    }
+                    document.getElementById("submit").disabled = flag;
+                }
+                else {
+                    document.getElementById("message").innerText = "The query should start with a< sign, then a letter from A to F, then: a value from 0 to 1, separating the letters and their values; The query ends with >";
+                    document.getElementById("submit").disabled = true;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="http://127.0.0.1:5000/Statistical_Model_Result" method="POST">
+                <label for="query" style="padding-bottom: 8px">Enter Query</label>
+                <input type="text" name="query" id="query" onkeyup="Check()"/>
+                <label id="message"></label>
+                <br>
+                <input type="submit" value="Search" id="submit"/>
+        </form>
+        <p><a href="http://127.0.0.1:5000/Vector_Space_Model">Vector Space Model</a></p>
+        <p><a href="http://127.0.0.1:5000">Home</a></p>
+    </body>
+</html>

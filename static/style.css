@@ -1,0 +1,27 @@
+form{
+    max-width: max-content;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+p{
+    max-width: max-content;
+    margin: auto;
+}
+
+h1{
+    max-width: max-content;
+    margin: auto;
+}
+
+td{
+    text-align: center;
+}
+
+table{
+    max-width: max-content;
+    margin: auto;
+}

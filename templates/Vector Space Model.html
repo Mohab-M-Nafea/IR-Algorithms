@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vector Space Model</title>
+        <link rel="stylesheet" media="screen" href="../static/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="../static/style.css">
+        <script>
+            function Check() {
+                let query = document.getElementById("query").value;
+                let regExp = /^[A-F](( [A-F])*)$/;
+                if (regExp.test(query)) {
+                    document.getElementById("message").innerText = "";
+                    document.getElementById("submit").disabled = false
+                }
+                else {
+                    document.getElementById("message").style.color = "red";
+                    document.getElementById("message").innerText = "The search query must be letters from A to F, separated by a space";
+                    document.getElementById("submit").disabled = true;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="http://127.0.0.1:5000/Vector_Space_Model_Result" method="POST">
+            <label for="query" style="padding-bottom: 8px">Enter Query</label>
+            <input type="text" name="query" id="query" onkeyup="Check()"/>
+            <label id="message"></label>
+            <br>
+            <input type="submit" value="Search" id="submit"/>
+        </form>
+        <p><a href="http://127.0.0.1:5000/Statistical_Model">Statistical Model</a></p>
+        <p><a href="http://127.0.0.1:5000">Home</a></p>
+    </body>
+</html>

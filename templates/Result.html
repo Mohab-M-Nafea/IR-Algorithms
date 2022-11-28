@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Result</title>
+        <link rel="stylesheet" media="screen" href="../static/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="../static/style.css">
+    </head>
+    <body>
+        <h1>Result</h1>
+        <br>
+        <table border = 1>
+            <tr>
+                <th>index</th>
+                <th>Document</th>
+                <th style="text-align: center">Sim</th>
+            </tr>
+            {% for i in range(num) %}
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                        <p><a href="http://127.0.0.1:5000/Result_{{ matrix[i] }}" target="_blank">{{ matrix[i] }}</a></p>
+                    </td>
+                    <td>{{ sim[i] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <p><a href="http://127.0.0.1:5000/Statistical_Model">Statistical Model</a></p>
+        <p><a href="http://127.0.0.1:5000/Vector_Space_Model">Vector Space Model</a></p>
+        <p><a href="http://127.0.0.1:5000">Home</a></p>
+    </body>
+</html>
